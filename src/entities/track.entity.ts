@@ -1,7 +1,8 @@
 /* eslint-disable prettier/prettier */
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, ManyToMany, JoinTable, OneToMany } from "typeorm";
 import { AppUser } from './app-user.entity';
 import { Playlist } from "./playlist.entity";
+import { Comment } from "./comment.entity";
 
 @Entity({ schema: 'soundground', name: 'track' })
 export class Track {
@@ -32,9 +33,37 @@ export class Track {
   @Column({ name: 'user_id' })
   userId: number;
 
+  //user create tracks
   @ManyToOne(() => AppUser, (user) => user.tracks)
   user: AppUser;
 
-  @ManyToOne (() => Playlist, (playlist) => playlist.tracks)
-  playlist: Playlist;
+  //tracks and playlists
+  @ManyToMany(() => Playlist, (playlist) => playlist.tracks)
+  @JoinTable({ name: 'playlist_track',
+    joinColumn: { name: 'track_id', referencedColumnName: 'trackId' },
+    inverseJoinColumn: { name: 'playlist_id', referencedColumnName: 'playlistId' },
+  })
+  playlists: Playlist[];
+
+  // liked tracks relation
+  @ManyToMany(() => AppUser, (user) => user.likedTracks)
+  @JoinTable({ name: 'track_like',
+    joinColumn: { name: 'track_id', referencedColumnName: 'trackId' },
+    inverseJoinColumn: { name: 'user_id', referencedColumnName: 'userId' },
+  })
+  likes: AppUser[];
+
+  // reposts relation here
+  @ManyToMany(() => AppUser, (user) => user.repostedTracks)
+  @JoinTable({ name: 'track_repost',
+    joinColumn: { name: 'track_id', referencedColumnName: 'trackId' },
+    inverseJoinColumn: { name: 'user_id', referencedColumnName: 'userId' },
+  })
+  reposts: AppUser[];
+
+  //comments relation here
+  @OneToMany(() => Comment, (comment) => comment.track)
+  comments: Comment[];
+
+
 }

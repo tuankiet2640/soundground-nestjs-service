@@ -1,6 +1,14 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
 import { Track } from './track.entity';
 import { Comment } from './comment.entity';
+import { Playlist } from './playlist.entity';
 
 @Entity({ schema: 'soundground', name: 'app_user' })
 export class AppUser {
@@ -22,9 +30,42 @@ export class AppUser {
   @Column({ name: 'is_active' })
   isActive: boolean;
 
+  //track creation
   @OneToMany(() => Track, (track) => track.user)
   tracks: Track[];
 
+  //comments
   @OneToMany(() => Comment, (comment) => comment.user)
   comments: Comment[];
+
+  //liked tracks
+  @ManyToMany(() => Track, (track) => track.likes)
+  likedTracks: Track[];
+
+  //track reposts
+  @ManyToMany(() => Track, (track) => track.reposts)
+  repostedTracks: Track[];
+
+  //followers of users
+  @ManyToMany(() => AppUser, (user) => user.following)
+  followers: AppUser[];
+
+  @ManyToMany(() => AppUser, (user) => user.followers)
+  following: AppUser[];
+
+  //followers of playlists
+  @ManyToMany(() => Playlist, (playlist) => playlist.likes)
+  followersPlaylists: AppUser[];
+
+  //created playlists
+  @OneToMany(() => Playlist, (playlist) => playlist.creator)
+  @JoinTable({
+    name: 'playlist_creator',
+    joinColumn: { name: 'user_id', referencedColumnName: 'userId' },
+    inverseJoinColumn: {
+      name: 'playlist_id',
+      referencedColumnName: 'playlistId',
+    },
+  })
+  createdPlaylists: Playlist[];
 }
