@@ -4,6 +4,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AudioModule } from './audio/audio.module';
+import { TrackController } from './controller/track.controller';
+import { TrackService } from './service/track.service';
+import { TrackRepository } from './repository/track.repository';
 
 @Module({
   imports: [
@@ -19,12 +22,12 @@ import { AudioModule } from './audio/audio.module';
         username: configService.get<string>('DATABASE_USERNAME'),
         password: configService.get<string>('DATABASE_PASSWORD'),
         database: configService.get<string>('DATABASE_NAME'),
-        entities: [], // Add entities here
+        entities: [],
         synchronize: true,
       }),
     }),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, TrackController],
+  providers: [AppService, TrackService, TrackRepository],
 })
 export class AppModule {}
