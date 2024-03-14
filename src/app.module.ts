@@ -1,17 +1,19 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { AudioModule } from './audio/audio.module';
-import { TrackController } from './controller/track.controller';
-import { TrackService } from './service/track.service';
+import { Module } from "@nestjs/common";
+import { ConfigModule, ConfigService } from "@nestjs/config";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { AppService } from "./app.service";
+import { AudioModule } from "./audio/audio.module";
+import { TrackController } from "./controller/track.controller";
+import { TrackService } from "./service/track.service";
 import { Track } from "./entities/track.entity";
 import { AppUser } from "./entities/app-user.entity";
 import { Playlist } from "./entities/playlist.entity";
 import { Comment } from "./entities/comment.entity";
 import { PlaylistService } from "./service/playlist.service";
 import { PlaylistController } from "./controller/playlist.controller";
+import { AppController } from "./app.controller";
+import { AppUserService } from "./service/app-user.service";
+import { AppUserController } from "./controller/app-user.controller";
 
 @Module({
   imports: [
@@ -29,12 +31,11 @@ import { PlaylistController } from "./controller/playlist.controller";
         database: configService.get<string>('DATABASE_NAME'),
         entities: [Track, AppUser, Playlist, Comment],
         synchronize: true,
-        dropSchema: true,
       }),
     }),
-    TypeOrmModule.forFeature([Track]),
+    TypeOrmModule.forFeature([Track, AppUser, Playlist, Comment]),
   ],
-  controllers: [AppController, TrackController, PlaylistController],
-  providers: [AppService, TrackService, PlaylistService],
+  controllers: [TrackController, PlaylistController, AppUserController],
+  providers: [AppService, TrackService, PlaylistService, AppUserService],
 })
 export class AppModule {}
