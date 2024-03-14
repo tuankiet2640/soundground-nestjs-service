@@ -6,7 +6,10 @@ import { AppService } from './app.service';
 import { AudioModule } from './audio/audio.module';
 import { TrackController } from './controller/track.controller';
 import { TrackService } from './service/track.service';
-import { TrackRepository } from './repository/track.repository';
+import { Track } from "./entities/track.entity";
+import { AppUser } from "./entities/app-user.entity";
+import { Playlist } from "./entities/playlist.entity";
+import { Comment } from "./entities/comment.entity";
 
 @Module({
   imports: [
@@ -22,12 +25,13 @@ import { TrackRepository } from './repository/track.repository';
         username: configService.get<string>('DATABASE_USERNAME'),
         password: configService.get<string>('DATABASE_PASSWORD'),
         database: configService.get<string>('DATABASE_NAME'),
-        entities: [],
+        entities: [Track, AppUser, Playlist, Comment],
         synchronize: true,
       }),
     }),
+    TypeOrmModule.forFeature([Track]),
   ],
   controllers: [AppController, TrackController],
-  providers: [AppService, TrackService, TrackRepository],
+  providers: [AppService, TrackService],
 })
 export class AppModule {}

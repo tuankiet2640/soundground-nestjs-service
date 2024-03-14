@@ -1,73 +1,52 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Soundground NestJS Service
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Soundground is a web application similar to SoundCloud, built using the NestJS framework and other modern technologies. It allows users to upload, share, and listen to audio tracks. The backend service, written in NestJS, handles the core functionality and interactions with the database.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Technologies Used
 
-## Description
+- **NestJS**: A progressive Node.js framework for building efficient, scalable, and maintainable server-side applications.
+- **TypeORM**: An Object-Relational Mapping (ORM) library for TypeScript and JavaScript, used for interacting with the database.
+- **PostgreSQL**: The open-source relational database management system used for storing and retrieving data.
+- **Passport.js**: Authentication middleware for Node.js, used for user authentication and authorization.
+- **Jest**: A JavaScript testing framework, used for writing and running unit and integration tests.
+- **nestjs-library-crud**: Automatically generates CRUD routes of a controller for given TypeORM entity.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Installation
+## Getting Started
 
-```bash
-$ npm install
-```
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Set up the environment variables (e.g., database credentials)
+4. Start the development server: `npm run start:dev`
 
-## Running the app
+## Features
 
-```bash
-# development
-$ npm run start
+- User authentication and authorization
+- Upload and stream audio tracks
+- Create and manage playlists
+- Comment on tracks
+- Search and browse tracks and playlists
 
-# watch mode
-$ npm run start:dev
+## Project Structure
 
-# production mode
-$ npm run start:prod
-```
+- `src/app.module.ts`: The main module that imports and configures other modules and services.
+- `src/audio/audio.module.ts`: The module responsible for handling audio-related functionality.
+- `src/controller/track.controller.ts`: The controller that handles track-related HTTP requests.
+- `src/service/track.service.ts`: The service that contains the business logic for track operations.
+- `src/entities/`: Contains the TypeORM entity classes that represent database tables.
 
-## Test
+## Generated endpoints
+CRUD endpoints:
 
-```bash
-# unit tests
-$ npm run test
+- GET /tracks - retrieves a list of users with pagination
+- GET /tracks/:id - retrieves a single user by ID
+- POST /tracks - creates single or multiple users
+- PATCH /tracks/:id - updates an existing user by ID
+- DELETE /tracks/:id - deletes an existing user by ID
+- PUT /tracks/:id - upserts (update or create) an existing user by ID
+- POST /tracks/search - retrieves a list of users based on complex search criteria
+- POST /tracks/:id/recover - recovers a soft deleted user by ID
 
-# e2e tests
-$ npm run test:e2e
+## Contributions
+Contributions are welcome!
 
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).

@@ -1,11 +1,11 @@
 import {
-  Column,
+  Column, CreateDateColumn,
   Entity,
   JoinTable,
   ManyToMany,
   OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+  PrimaryGeneratedColumn
+} from "typeorm";
 import { Track } from './track.entity';
 import { AppUser } from './app-user.entity';
 import { Comment } from './comment.entity';
@@ -19,6 +19,7 @@ export class Playlist {
   title: string;
 
   @Column({ name: 'created_at', type: 'timestamp' })
+  @CreateDateColumn()
   createdAt: Date;
 
   @Column({ name: 'user_id' })
