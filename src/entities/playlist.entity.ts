@@ -21,7 +21,6 @@ export class Playlist extends BaseEntity {
   title: string;
 
   @Column({ name: 'created_at', type: 'timestamp' })
-  @CreateDateColumn()
   createdAt: Date;
 
   @Column({ name: 'user_id' })
