@@ -10,6 +10,8 @@ import { Track } from "./entities/track.entity";
 import { AppUser } from "./entities/app-user.entity";
 import { Playlist } from "./entities/playlist.entity";
 import { Comment } from "./entities/comment.entity";
+import { PlaylistService } from "./service/playlist.service";
+import { PlaylistController } from "./controller/playlist.controller";
 
 @Module({
   imports: [
@@ -27,11 +29,12 @@ import { Comment } from "./entities/comment.entity";
         database: configService.get<string>('DATABASE_NAME'),
         entities: [Track, AppUser, Playlist, Comment],
         synchronize: true,
+        dropSchema: true,
       }),
     }),
     TypeOrmModule.forFeature([Track]),
   ],
-  controllers: [AppController, TrackController],
-  providers: [AppService, TrackService],
+  controllers: [AppController, TrackController, PlaylistController],
+  providers: [AppService, TrackService, PlaylistService],
 })
 export class AppModule {}

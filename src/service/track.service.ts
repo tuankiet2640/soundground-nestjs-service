@@ -11,7 +11,4 @@ export class TrackService extends CrudService<Track> {
   ) {
     super(trackRepository);
   }
-  findAll(): Promise<Track[]> {
-    return this.trackRepository.find();
-  }
 }

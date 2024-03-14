@@ -1,17 +1,17 @@
 //playlist service
-import { Injectable } from '@nestjs/common';
-import { Playlist } from '../entities/playlist.entity';
+import { Injectable } from "@nestjs/common";
+import { Playlist } from "../entities/playlist.entity";
+import { CrudService } from "@nestjs-library/crud";
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Track } from "../entities/track.entity";
+import { Repository } from "typeorm";
 
 @Injectable()
-export class PlaylistService {
+export class PlaylistService extends CrudService<Playlist> {
   constructor(
-    @InjectRepository(Playlist)
+    @InjectRepository(Track)
     private playlistRepository: Repository<Playlist>,
-  ) {}
-
-  findAll(): Promise<Playlist[]> {
-    return this.playlistRepository.find();
+  ) {
+    super(playlistRepository);
   }
 }

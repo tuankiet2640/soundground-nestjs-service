@@ -1,17 +1,19 @@
 import {
-  Column, CreateDateColumn,
+  BaseEntity,
+  Column,
+  CreateDateColumn,
   Entity,
   JoinTable,
   ManyToMany,
   OneToMany,
-  PrimaryGeneratedColumn
-} from "typeorm";
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Track } from './track.entity';
 import { AppUser } from './app-user.entity';
 import { Comment } from './comment.entity';
 
 @Entity({ schema: 'soundground', name: 'playlist' })
-export class Playlist {
+export class Playlist extends BaseEntity {
   @PrimaryGeneratedColumn('increment', { name: 'playlist_id' })
   playlistId: number;
 

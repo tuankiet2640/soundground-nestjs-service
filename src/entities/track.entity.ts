@@ -1,11 +1,20 @@
 /* eslint-disable prettier/prettier */
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, ManyToMany, JoinTable, OneToMany } from "typeorm";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  ManyToMany,
+  JoinTable,
+  OneToMany,
+  BaseEntity, JoinColumn
+} from "typeorm";
 import { AppUser } from './app-user.entity';
 import { Playlist } from "./playlist.entity";
 import { Comment } from "./comment.entity";
 
 @Entity({ schema: 'soundground', name: 'track' })
-export class Track {
+export class Track extends BaseEntity{
   @PrimaryGeneratedColumn('increment', { name: 'track_id' })
   trackId: number;
 
@@ -30,11 +39,9 @@ export class Track {
   @Column({ name: 'status', length: 50 })
   status: string;
 
-  @Column({ name: 'user_id' })
-  userId: number;
-
-  //user create tracks
+//user create tracks
   @ManyToOne(() => AppUser, (user) => user.tracks)
+  @JoinColumn({ name: 'user_id' })
   user: AppUser;
 
   //tracks and playlists
