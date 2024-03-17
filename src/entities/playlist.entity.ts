@@ -2,12 +2,13 @@ import {
   BaseEntity,
   Column,
   CreateDateColumn,
-  Entity,
+  Entity, JoinColumn,
   JoinTable,
   ManyToMany,
+  ManyToOne,
   OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+  PrimaryGeneratedColumn
+} from "typeorm";
 import { Track } from './track.entity';
 import { AppUser } from './app-user.entity';
 import { Comment } from './comment.entity';
@@ -23,20 +24,13 @@ export class Playlist extends BaseEntity {
   @Column({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;
 
-  @Column({ name: 'user_id' })
-  userId: number;
-
   //tracks and playlists
   @ManyToMany(() => Track, (track) => track.playlists)
   tracks: Track[];
 
   //user create playlists
-  @ManyToMany(() => AppUser, (user) => user.createdPlaylists)
-  @JoinTable({
-    name: 'playlist_creator',
-    joinColumn: { name: 'playlist_id', referencedColumnName: 'playlistId' },
-    inverseJoinColumn: { name: 'user_id', referencedColumnName: 'userId' },
-  })
+  @ManyToOne(() => AppUser, (user) => user.createdPlaylists)
+  @JoinColumn({ name: 'user_id' })
   creator: AppUser;
 
   // followers of playlists
@@ -46,7 +40,7 @@ export class Playlist extends BaseEntity {
     joinColumn: { name: 'playlist_id', referencedColumnName: 'playlistId' },
     inverseJoinColumn: { name: 'user_id', referencedColumnName: 'userId' },
   })
-  likes: AppUser[];
+  followers: AppUser[];
 
   //comments on playlists
   @OneToMany(() => Comment, (comment) => comment.playlist)

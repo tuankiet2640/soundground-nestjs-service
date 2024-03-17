@@ -11,7 +11,6 @@ import { Playlist } from "./entities/playlist.entity";
 import { Comment } from "./entities/comment.entity";
 import { PlaylistService } from "./service/playlist.service";
 import { PlaylistController } from "./controller/playlist.controller";
-import { AppController } from "./app.controller";
 import { AppUserService } from "./service/app-user.service";
 import { AppUserController } from "./controller/app-user.controller";
 

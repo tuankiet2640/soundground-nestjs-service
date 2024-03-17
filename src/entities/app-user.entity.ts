@@ -4,7 +4,6 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
   ManyToMany,
-  JoinTable,
 } from 'typeorm';
 import { Track } from './track.entity';
 import { Comment } from './comment.entity';
@@ -54,18 +53,10 @@ export class AppUser {
   following: AppUser[];
 
   //followers of playlists
-  @ManyToMany(() => Playlist, (playlist) => playlist.likes)
-  followersPlaylists: AppUser[];
+  @ManyToMany(() => Playlist, (playlist) => playlist.followers)
+  followersPlaylists: Playlist[];
 
   //created playlists
   @OneToMany(() => Playlist, (playlist) => playlist.creator)
-  @JoinTable({
-    name: 'playlist_creator',
-    joinColumn: { name: 'user_id', referencedColumnName: 'userId' },
-    inverseJoinColumn: {
-      name: 'playlist_id',
-      referencedColumnName: 'playlistId',
-    },
-  })
   createdPlaylists: Playlist[];
 }

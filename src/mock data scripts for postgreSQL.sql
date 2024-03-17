@@ -47,13 +47,6 @@ VALUES
   (1, 3),
   (2, 2);
 
--- Insert mock data for playlist_creator table (many-to-many relationship between Playlist and AppUser)
-INSERT INTO soundground.playlist_creator (playlist_id, user_id)
-VALUES
-  (1, 1),
-  (2, 2),
-  (3, 1);
-
 -- Insert mock data for playlist_like table (many-to-many relationship between Playlist and AppUser)
 INSERT INTO soundground.playlist_like (playlist_id, user_id)
 VALUES
